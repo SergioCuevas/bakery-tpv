@@ -1,0 +1,9 @@
+{
+    "bakeryTpvApp": {
+        "MetodoPago" : {
+            "null": "",
+            "EFECTIVO": "EFECTIVO",
+            "TARJETA": "TARJETA"
+        }
+    }
+}

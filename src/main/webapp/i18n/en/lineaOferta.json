@@ -1,0 +1,25 @@
+{
+    "bakeryTpvApp": {
+        "lineaOferta" : {
+            "home": {
+                "title": "Linea Ofertas",
+                "createLabel": "Create a new Linea Oferta",
+                "createOrEditLabel": "Create or edit a Linea Oferta"
+            },
+            "created": "A new Linea Oferta is created with identifier {{ param }}",
+            "updated": "A Linea Oferta is updated with identifier {{ param }}",
+            "deleted": "A Linea Oferta is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Linea Oferta {{ id }}?"
+            },
+            "detail": {
+                "title": "Linea Oferta"
+            },
+            "nombre": "Nombre",
+            "cantidad": "Cantidad",
+            "oferta": "Oferta",
+            "producto": "Producto",
+            "tipo": "Tipo"
+        }
+    }
+}

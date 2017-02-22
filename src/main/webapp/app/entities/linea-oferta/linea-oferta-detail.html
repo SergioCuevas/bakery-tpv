@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="bakeryTpvApp.lineaOferta.detail.title">Linea Oferta</span> {{vm.lineaOferta.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="bakeryTpvApp.lineaOferta.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.lineaOferta.nombre}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.lineaOferta.cantidad">Cantidad</span></dt>
+        <dd>
+            <span>{{vm.lineaOferta.cantidad}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.lineaOferta.oferta">Oferta</span></dt>
+        <dd>
+            <a ui-sref="oferta-detail({id:vm.lineaOferta.oferta.id})">{{vm.lineaOferta.oferta.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.lineaOferta.producto">Producto</span></dt>
+        <dd>
+            <a ui-sref="producto-detail({id:vm.lineaOferta.producto.id})">{{vm.lineaOferta.producto.nombre}}</a>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.lineaOferta.tipo">Tipo</span></dt>
+        <dd>
+            <a ui-sref="tipo-detail({id:vm.lineaOferta.tipo.id})">{{vm.lineaOferta.tipo.nombre}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="linea-oferta-detail.edit({id:vm.lineaOferta.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

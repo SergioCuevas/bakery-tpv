@@ -1,0 +1,36 @@
+
+<div>
+    <h2><span data-translate="bakeryTpvApp.tipo.detail.title">Tipo</span> {{vm.tipo.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="bakeryTpvApp.tipo.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.tipo.nombre}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.tipo.image">Image</span></dt>
+        <dd>
+            <div ng-if="vm.tipo.image">
+                <a ng-click="vm.openFile(vm.tipo.imageContentType, vm.tipo.image)">
+                    <img data-ng-src="{{'data:' + vm.tipo.imageContentType + ';base64,' + vm.tipo.image}}" style="max-width: 100%;" alt="tipo image"/>
+                </a>
+                {{vm.tipo.imageContentType}}, {{vm.byteSize(vm.tipo.image)}}
+            </div>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.tipo.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{vm.tipo.descripcion}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="tipo-detail.edit({id:vm.tipo.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

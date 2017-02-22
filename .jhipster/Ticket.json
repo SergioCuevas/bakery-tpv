@@ -1,0 +1,55 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "ticket",
+            "relationshipName": "oferta",
+            "otherEntityName": "oferta",
+            "otherEntityField": "nombre",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "ticket",
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "otherEntityField": "nombre",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "fecha",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "mesa",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "cantidad",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "metodoPago",
+            "fieldType": "MetodoPago",
+            "fieldValues": "EFECTIVO,TARJETA"
+        },
+        {
+            "fieldName": "cerrado",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20170222165232",
+    "entityTableName": "ticket",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

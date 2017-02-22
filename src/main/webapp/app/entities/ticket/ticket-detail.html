@@ -1,0 +1,55 @@
+
+<div>
+    <h2><span data-translate="bakeryTpvApp.ticket.detail.title">Ticket</span> {{vm.ticket.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="bakeryTpvApp.ticket.fecha">Fecha</span></dt>
+        <dd>
+            <span>{{vm.ticket.fecha | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.mesa">Mesa</span></dt>
+        <dd>
+            <span>{{vm.ticket.mesa}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.cantidad">Cantidad</span></dt>
+        <dd>
+            <span>{{vm.ticket.cantidad}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.metodoPago">Metodo Pago</span></dt>
+        <dd>
+            <span data-translate="{{'bakeryTpvApp.MetodoPago.' + vm.ticket.metodoPago}}">{{vm.ticket.metodoPago}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.cerrado">Cerrado</span></dt>
+        <dd>
+            <span>{{vm.ticket.cerrado}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.user">User</span></dt>
+        <dd>
+            {{vm.ticket.user.login}}
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.oferta">Oferta</span></dt>
+        <dd>
+            <span ng-repeat="oferta in vm.ticket.ofertas">
+                <a ui-sref="oferta-detail({id: oferta.id})">{{oferta.nombre}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.ticket.producto">Producto</span></dt>
+        <dd>
+            <span ng-repeat="producto in vm.ticket.productos">
+                <a ui-sref="producto-detail({id: producto.id})">{{producto.nombre}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="ticket-detail.edit({id:vm.ticket.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

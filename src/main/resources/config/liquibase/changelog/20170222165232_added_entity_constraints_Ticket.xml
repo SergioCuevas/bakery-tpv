@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Ticket.
+    -->
+    <changeSet id="20170222165232-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="ticket"
+                                 constraintName="fk_ticket_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="tickets_id"
+                                 baseTableName="ticket_oferta"
+                                 constraintName="fk_ticket_oferta_tickets_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ticket"/>
+        <addForeignKeyConstraint baseColumnNames="ofertas_id"
+                                 baseTableName="ticket_oferta"
+                                 constraintName="fk_ticket_oferta_ofertas_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="oferta"/>
+        
+        <addForeignKeyConstraint baseColumnNames="tickets_id"
+                                 baseTableName="ticket_producto"
+                                 constraintName="fk_ticket_producto_tickets_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="ticket"/>
+        <addForeignKeyConstraint baseColumnNames="productos_id"
+                                 baseTableName="ticket_producto"
+                                 constraintName="fk_ticket_producto_productos_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+        
+    </changeSet>
+</databaseChangeLog>

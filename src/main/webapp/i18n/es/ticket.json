@@ -1,0 +1,28 @@
+{
+    "bakeryTpvApp": {
+        "ticket" : {
+            "home": {
+                "title": "Tickets",
+                "createLabel": "Crear nuevo Ticket",
+                "createOrEditLabel": "Crear o editar Ticket"
+            },
+            "created": "Un nuevo Ticket ha sido creado con el identificador {{ param }}",
+            "updated": "Un Ticket ha sido actualizado con el identificador {{ param }}",
+            "deleted": "Un Ticket ha sido eliminado con el identificador {{ param }}",
+            "delete": {
+                "question": "¿Seguro que quiere eliminar Ticket {{ id }}?"
+            },
+            "detail": {
+                "title": "Ticket"
+            },
+            "fecha": "Fecha",
+            "mesa": "Mesa",
+            "cantidad": "Cantidad",
+            "metodoPago": "Metodo Pago",
+            "cerrado": "Cerrado",
+            "user": "User",
+            "oferta": "Oferta",
+            "producto": "Producto"
+        }
+    }
+}

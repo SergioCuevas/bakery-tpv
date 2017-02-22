@@ -1,0 +1,48 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "tipo",
+            "otherEntityName": "tipo",
+            "otherEntityField": "nombre"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lineaoferta",
+            "otherEntityName": "lineaOferta",
+            "otherEntityRelationshipName": "producto"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "ticket",
+            "otherEntityName": "ticket",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "producto"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20170222165232",
+    "entityTableName": "producto",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

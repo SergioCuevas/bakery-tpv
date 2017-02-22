@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity LineaOferta.
+    -->
+    <changeSet id="20170222165232-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="oferta_id"
+                                 baseTableName="linea_oferta"
+                                 constraintName="fk_linea_oferta_oferta_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="oferta"/>
+
+        <addForeignKeyConstraint baseColumnNames="producto_id"
+                                 baseTableName="linea_oferta"
+                                 constraintName="fk_linea_oferta_producto_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="producto"/>
+
+        <addForeignKeyConstraint baseColumnNames="tipo_id"
+                                 baseTableName="linea_oferta"
+                                 constraintName="fk_linea_oferta_tipo_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tipo"/>
+
+    </changeSet>
+</databaseChangeLog>

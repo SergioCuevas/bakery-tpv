@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "producto",
+            "otherEntityName": "producto",
+            "otherEntityRelationshipName": "tipo"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lineaoferta",
+            "otherEntityName": "lineaOferta",
+            "otherEntityRelationshipName": "tipo"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "image",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170222165232",
+    "entityTableName": "tipo",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

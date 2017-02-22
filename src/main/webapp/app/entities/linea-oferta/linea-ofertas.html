@@ -1,0 +1,70 @@
+<div>
+    <h2 data-translate="bakeryTpvApp.lineaOferta.home.title">Linea Ofertas</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="linea-oferta.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span  data-translate="bakeryTpvApp.lineaOferta.home.createLabel">
+                        Create new Linea Oferta
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span data-translate="global.field.id">ID</span></th>
+                    <th><span data-translate="bakeryTpvApp.lineaOferta.nombre">Nombre</span></th>
+                    <th><span data-translate="bakeryTpvApp.lineaOferta.cantidad">Cantidad</span></th>
+                    <th><span data-translate="bakeryTpvApp.lineaOferta.oferta">Oferta</span></th>
+                    <th><span data-translate="bakeryTpvApp.lineaOferta.producto">Producto</span></th>
+                    <th><span data-translate="bakeryTpvApp.lineaOferta.tipo">Tipo</span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="lineaOferta in vm.lineaOfertas track by lineaOferta.id">
+                    <td><a ui-sref="linea-oferta-detail({id:lineaOferta.id})">{{lineaOferta.id}}</a></td>
+                    <td>{{lineaOferta.nombre}}</td>
+                    <td>{{lineaOferta.cantidad}}</td>
+                    <td>
+                        <a ui-sref="oferta-detail({id:lineaOferta.oferta.id})">{{lineaOferta.oferta.nombre}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="producto-detail({id:lineaOferta.producto.id})">{{lineaOferta.producto.nombre}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="tipo-detail({id:lineaOferta.tipo.id})">{{lineaOferta.tipo.nombre}}</a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="linea-oferta-detail({id:lineaOferta.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="linea-oferta.edit({id:lineaOferta.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="linea-oferta.delete({id:lineaOferta.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

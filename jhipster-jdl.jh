@@ -1,0 +1,56 @@
+entity Producto {
+	 nombre String,
+     imagen ImageBlob,
+     descripcion String,
+     precio Double
+}
+
+enum MetodoPago {
+    EFECTIVO, TARJETA
+  }
+
+
+entity Ticket{
+	fecha ZonedDateTime,
+    mesa Integer,
+    cantidad Double,
+    metodoPago MetodoPago,
+    cerrado Boolean
+}
+
+
+entity Oferta{
+	nombre String,
+    imagen ImageBlob,
+    descripcion String,
+    precio Double,
+    fechainicio ZonedDateTime,
+    fechafinal ZonedDateTime
+}
+
+entity	LineaOferta{
+	nombre String,
+	cantidad Integer,
+}
+
+entity Tipo{
+ nombre String,
+ image ImageBlob,
+ descripcion String
+
+}
+
+relationship ManyToMany{
+	Ticket{oferta(nombre)} to Oferta{Ticket},
+    Ticket{producto(nombre)} to Producto{Ticket}
+}
+
+relationship ManyToOne{
+
+    LineaOferta{oferta(nombre)} to Oferta{lineaoferta},
+    Producto{tipo(nombre)} to Tipo{producto},
+    LineaOferta{producto(nombre)} to Producto{lineaoferta},
+    LineaOferta{tipo(nombre)} to Tipo{lineaoferta},
+	Ticket{user(login)} to User
+}
+

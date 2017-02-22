@@ -1,0 +1,48 @@
+
+<div>
+    <h2><span data-translate="bakeryTpvApp.oferta.detail.title">Oferta</span> {{vm.oferta.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row jh-entity-details">
+        <dt><span data-translate="bakeryTpvApp.oferta.nombre">Nombre</span></dt>
+        <dd>
+            <span>{{vm.oferta.nombre}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.oferta.imagen">Imagen</span></dt>
+        <dd>
+            <div ng-if="vm.oferta.imagen">
+                <a ng-click="vm.openFile(vm.oferta.imagenContentType, vm.oferta.imagen)">
+                    <img data-ng-src="{{'data:' + vm.oferta.imagenContentType + ';base64,' + vm.oferta.imagen}}" style="max-width: 100%;" alt="oferta image"/>
+                </a>
+                {{vm.oferta.imagenContentType}}, {{vm.byteSize(vm.oferta.imagen)}}
+            </div>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.oferta.descripcion">Descripcion</span></dt>
+        <dd>
+            <span>{{vm.oferta.descripcion}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.oferta.precio">Precio</span></dt>
+        <dd>
+            <span>{{vm.oferta.precio}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.oferta.fechainicio">Fechainicio</span></dt>
+        <dd>
+            <span>{{vm.oferta.fechainicio | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="bakeryTpvApp.oferta.fechafinal">Fechafinal</span></dt>
+        <dd>
+            <span>{{vm.oferta.fechafinal | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="oferta-detail.edit({id:vm.oferta.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

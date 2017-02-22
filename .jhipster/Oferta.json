@@ -1,0 +1,50 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "lineaoferta",
+            "otherEntityName": "lineaOferta",
+            "otherEntityRelationshipName": "oferta"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "ticket",
+            "otherEntityName": "ticket",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "oferta"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "nombre",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "imagen",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "descripcion",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "precio",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "fechainicio",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "fechafinal",
+            "fieldType": "ZonedDateTime"
+        }
+    ],
+    "changelogDate": "20170222165232",
+    "entityTableName": "oferta",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}
