@@ -5,6 +5,7 @@ import com.bakery.tpv.domain.Ticket;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -21,5 +22,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
     @Query("select ticket from Ticket ticket left join fetch ticket.ofertas left join fetch ticket.productos where ticket.id =:id")
     Ticket findOneWithEagerRelationships(@Param("id") Long id);
+
+    List<Ticket> findByFechaBetween(ZonedDateTime start ,ZonedDateTime end);
 
 }

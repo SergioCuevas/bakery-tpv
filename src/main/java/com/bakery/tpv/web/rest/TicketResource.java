@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +30,7 @@ public class TicketResource {
     private final Logger log = LoggerFactory.getLogger(TicketResource.class);
 
     private static final String ENTITY_NAME = "ticket";
-        
+
     private final TicketRepository ticketRepository;
 
     public TicketResource(TicketRepository ticketRepository) {
@@ -86,6 +90,18 @@ public class TicketResource {
         log.debug("REST request to get all Tickets");
         List<Ticket> tickets = ticketRepository.findAllWithEagerRelationships();
         return tickets;
+    }
+
+    @GetMapping("/tickets/today")
+    public List<Ticket> getTodayTickets(){
+        log.debug("Rest requests to get all Tickets from Today");
+
+        ZonedDateTime start = ZonedDateTime.of(LocalDate.now(), LocalTime.MIN, ZoneId.systemDefault());
+        ZonedDateTime end = ZonedDateTime.of(LocalDate.now(),LocalTime.MAX, ZoneId.systemDefault());
+
+        List<Ticket> tickets = ticketRepository.findByFechaBetween(start,end);
+
+        return  tickets;
     }
 
     /**
