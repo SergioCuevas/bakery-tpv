@@ -1,10 +1,12 @@
 package com.bakery.tpv.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.bakery.tpv.domain.Ticket;
 
+import com.bakery.tpv.domain.Ticket;
 import com.bakery.tpv.repository.TicketRepository;
+
+import com.bakery.tpv.service.dto.TicketsDiaDTO;
 import com.bakery.tpv.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,7 +95,7 @@ public class TicketResource {
     }
 
     @GetMapping("/tickets/today")
-    public List<Ticket> getTodayTickets(){
+    public TicketsDiaDTO getTodayTickets(){
         log.debug("Rest requests to get all Tickets from Today");
 
         ZonedDateTime start = ZonedDateTime.of(LocalDate.now(), LocalTime.MIN, ZoneId.systemDefault());
@@ -101,7 +103,17 @@ public class TicketResource {
 
         List<Ticket> tickets = ticketRepository.findByFechaBetween(start,end);
 
-        return  tickets;
+        Double total = 0.0;
+
+        for (Ticket ticket:tickets
+             ) {
+            total = total+ticket.getCantidad();
+
+        }
+
+        TicketsDiaDTO ticketsDiaDTO = new TicketsDiaDTO(tickets,total);
+
+        return  ticketsDiaDTO;
     }
 
     /**
