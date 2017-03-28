@@ -4,9 +4,7 @@ package com.bakery.tpv.domain;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 import com.bakery.tpv.domain.enumeration.MetodoPago;
 
@@ -52,7 +50,7 @@ public class Ticket implements Serializable {
     @JoinTable(name = "ticket_producto",
                joinColumns = @JoinColumn(name="tickets_id", referencedColumnName="id"),
                inverseJoinColumns = @JoinColumn(name="productos_id", referencedColumnName="id"))
-    private Set<Producto> productos = new HashSet<>();
+    private List<Producto> productos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -165,11 +163,11 @@ public class Ticket implements Serializable {
         this.ofertas = ofertas;
     }
 
-    public Set<Producto> getProductos() {
+    public List<Producto> getProductos() {
         return productos;
     }
 
-    public Ticket productos(Set<Producto> productos) {
+    public Ticket productos(List<Producto> productos) {
         this.productos = productos;
         return this;
     }
@@ -186,7 +184,7 @@ public class Ticket implements Serializable {
         return this;
     }
 
-    public void setProductos(Set<Producto> productos) {
+    public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
 

@@ -1,5 +1,7 @@
 package com.bakery.tpv.web.rest;
 
+import com.bakery.tpv.domain.Oferta;
+import com.bakery.tpv.domain.Producto;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Ticket;
 
@@ -26,7 +28,7 @@ public class TicketResource {
     private final Logger log = LoggerFactory.getLogger(TicketResource.class);
 
     private static final String ENTITY_NAME = "ticket";
-        
+
     private final TicketRepository ticketRepository;
 
     public TicketResource(TicketRepository ticketRepository) {
@@ -88,6 +90,21 @@ public class TicketResource {
         return tickets;
     }
 
+
+
+    @GetMapping("/tickets/productos/{id}")
+    @Timed
+    public List<Producto> getAllProductosByTicket(@PathVariable Long id) {
+        List<Producto> productos = ticketRepository.findProductsByTicketId(id);
+        return productos;
+    }
+
+    @GetMapping("/tickets/ofertas/{id}")
+    @Timed
+    public List<Oferta> getAllOfertasByTicket(@PathVariable Long id) {
+        List<Oferta> ofertas = ticketRepository.findOffersByTicketId(id);
+        return ofertas;
+    }
     /**
      * GET  /tickets/:id : get the "id" ticket.
      *

@@ -26,7 +26,7 @@ public class ProductoResource {
     private final Logger log = LoggerFactory.getLogger(ProductoResource.class);
 
     private static final String ENTITY_NAME = "producto";
-        
+
     private final ProductoRepository productoRepository;
 
     public ProductoResource(ProductoRepository productoRepository) {
@@ -87,6 +87,8 @@ public class ProductoResource {
         List<Producto> productos = productoRepository.findAll();
         return productos;
     }
+
+
 
     /**
      * GET  /productos/:id : get the "id" producto.
