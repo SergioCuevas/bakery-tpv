@@ -1,12 +1,13 @@
 package com.bakery.tpv.web.rest;
 
-import com.bakery.tpv.domain.Oferta;
-import com.bakery.tpv.domain.Producto;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Ticket;
 
 import com.bakery.tpv.repository.TicketRepository;
+
+import com.bakery.tpv.service.dto.TicketsDiaDTO;
 import com.bakery.tpv.web.rest.util.HeaderUtil;
+import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,6 +110,28 @@ public class TicketResource {
         List<Oferta> ofertas = ticketRepository.findOffersByTicketId(id);
         return ofertas;
     }
+    @GetMapping("/tickets/today")
+    public TicketsDiaDTO getTodayTickets(){
+        log.debug("Rest requests to get all Tickets from Today");
+
+        ZonedDateTime start = ZonedDateTime.of(LocalDate.now(), LocalTime.MIN, ZoneId.systemDefault());
+        ZonedDateTime end = ZonedDateTime.of(LocalDate.now(),LocalTime.MAX, ZoneId.systemDefault());
+
+        List<Ticket> tickets = ticketRepository.findByFechaBetween(start,end);
+
+        Double total = 0.0;
+
+        for (Ticket ticket:tickets
+             ) {
+            total = total+ticket.getCantidad();
+
+        }
+
+        TicketsDiaDTO ticketsDiaDTO = new TicketsDiaDTO(tickets,total);
+
+        return  ticketsDiaDTO;
+    }
+
     /**
      * GET  /tickets/:id : get the "id" ticket.
      *
