@@ -1,5 +1,7 @@
 package com.bakery.tpv.web.rest;
 
+import com.bakery.tpv.domain.Oferta;
+import com.bakery.tpv.domain.Producto;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Ticket;
 
@@ -54,6 +56,8 @@ public class TicketResource {
         if (ticket.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new ticket cannot already have an ID")).body(null);
         }
+        ticket.setFecha(ZonedDateTime.of(LocalDate.now(), LocalTime.now(), ZoneId.systemDefault()));
+        ticket.setCerrado(false);
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity.created(new URI("/api/tickets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
