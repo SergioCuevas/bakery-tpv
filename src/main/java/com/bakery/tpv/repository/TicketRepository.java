@@ -19,7 +19,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
     @Query("select ticket from Ticket ticket where ticket.user.login = ?#{principal.username}")
     List<Ticket> findByUserIsCurrentUser();
 
-    @Query("select distinct ticket from Ticket ticket left join fetch ticket.ofertas left join fetch ticket.productos")
+    @Query("select distinct ticket from Ticket ticket left join fetch ticket.ofertas left join fetch ticket.productos where ticket.cerrado=false")
     List<Ticket> findAllWithEagerRelationships();
 
     @Query("select ticket from Ticket ticket left join fetch ticket.ofertas left join fetch ticket.productos where ticket.id =:id")
