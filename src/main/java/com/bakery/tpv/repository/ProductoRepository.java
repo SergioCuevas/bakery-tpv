@@ -2,7 +2,10 @@ package com.bakery.tpv.repository;
 
 import com.bakery.tpv.domain.Producto;
 
+import com.bakery.tpv.domain.Ticket;
+import com.bakery.tpv.domain.Tipo;
 import org.springframework.data.jpa.repository.*;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,5 +14,6 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ProductoRepository extends JpaRepository<Producto,Long> {
-
+    @Query("select producto from Producto producto where producto.tipo.nombre=:tipo")
+    List<Producto> findProductoByTipo(String tipo);
 }

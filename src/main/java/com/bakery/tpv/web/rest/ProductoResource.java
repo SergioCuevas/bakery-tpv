@@ -1,5 +1,6 @@
 package com.bakery.tpv.web.rest;
 
+import com.bakery.tpv.domain.Tipo;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Producto;
 
@@ -85,6 +86,13 @@ public class ProductoResource {
     public List<Producto> getAllProductos() {
         log.debug("REST request to get all Productos");
         List<Producto> productos = productoRepository.findAll();
+        return productos;
+    }
+
+    @GetMapping("/productos/tipo/{tipo}")
+    @Timed
+    public List<Producto> getProductosByTipo(@PathVariable String tipo) {
+        List<Producto> productos = productoRepository.findProductoByTipo(tipo);
         return productos;
     }
 

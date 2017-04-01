@@ -27,6 +27,7 @@ public interface TicketRepository extends JpaRepository<Ticket,Long> {
 
     List<Ticket> findByFechaBetween(ZonedDateTime start , ZonedDateTime end);
 
+
     @Query("select ticket.productos from Ticket ticket where ticket.id=:id")
     List<Producto> findProductsByTicketId(@Param("id") Long id);
 
