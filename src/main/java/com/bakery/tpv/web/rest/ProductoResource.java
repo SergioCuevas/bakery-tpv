@@ -89,6 +89,7 @@ public class ProductoResource {
         return productos;
     }
 
+
     @GetMapping("/productos/tipo/{tipo}")
     @Timed
     public List<Producto> getProductosByTipo(@PathVariable String tipo) {
