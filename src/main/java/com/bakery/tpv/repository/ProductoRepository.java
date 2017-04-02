@@ -15,5 +15,6 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ProductoRepository extends JpaRepository<Producto,Long> {
     @Query("select producto from Producto producto where producto.tipo.nombre=:tipo")
-    List<Producto> findProductoByTipo(String tipo);
+    List<Producto> findProductoByTipo(@Param("tipo") String tipo);
+    List<Producto> findProductoByNombreContaining(String name);
 }
