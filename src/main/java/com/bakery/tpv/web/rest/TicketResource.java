@@ -73,6 +73,8 @@ public class TicketResource {
      * or with status 500 (Internal Server Error) if the ticket couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
+
+
     @PutMapping("/tickets")
     @Timed
     public ResponseEntity<Ticket> updateTicket(@RequestBody Ticket ticket) throws URISyntaxException {
@@ -83,6 +85,35 @@ public class TicketResource {
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ticket.getId().toString()))
+            .body(result);
+    }
+
+    //Función para añadir un producto a un ticket, primero busca el ticket con el id del path,
+    // y a ese ticket se le añade el producto. Finalmente tambien se le suma a la cantidad total
+    // del ticket el precio del producto
+    @PutMapping("/tickets/producto/ad/{id}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketAddProduct(@RequestBody Producto producto, @PathVariable long id) throws URISyntaxException {
+        Ticket t = ticketRepository.findOne(id);
+        t.addProducto(producto);
+        t.setCantidad(t.getCantidad()+producto.getPrecio());
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
+            .body(result);
+    }
+
+    //Función para añadir una oferta a un ticket, primero busca el ticket con el id del path,
+    // y a ese ticket se le ae la oferta
+    @PutMapping("/tickets/oferta/add/{id}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketAddProduct(@RequestBody Oferta oferta, @PathVariable long id) throws URISyntaxException {
+        Ticket t = ticketRepository.findOne(id);
+        t.addOferta(oferta);
+        t.setCantidad(t.getCantidad()+oferta.getPrecio());
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
             .body(result);
     }
 
@@ -100,7 +131,7 @@ public class TicketResource {
     }
 
 
-
+    /* Devuelve una lista con los productos de un ticket a traves de una id*/
     @GetMapping("/tickets/productos/{id}")
     @Timed
     public List<Producto> getAllProductosByTicket(@PathVariable Long id) {
@@ -108,12 +139,15 @@ public class TicketResource {
         return productos;
     }
 
+    /**Devuelve una lista con las ofertas de un ticket*/
     @GetMapping("/tickets/ofertas/{id}")
     @Timed
     public List<Oferta> getAllOfertasByTicket(@PathVariable Long id) {
         List<Oferta> ofertas = ticketRepository.findOffersByTicketId(id);
         return ofertas;
     }
+
+    /*Devuelve los tickets y la cantidad total de estos de el dia actual*/
     @GetMapping("/tickets/today")
     public TicketsDiaDTO getTodayTickets(){
         log.debug("Rest requests to get all Tickets from Today");
