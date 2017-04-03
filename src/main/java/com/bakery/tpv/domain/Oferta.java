@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * A Oferta.
@@ -50,7 +48,7 @@ public class Oferta implements Serializable {
 
     @ManyToMany(mappedBy = "ofertas")
     @JsonIgnore
-    private Set<Ticket> tickets = new HashSet<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -176,11 +174,11 @@ public class Oferta implements Serializable {
         this.lineaofertas = lineaOfertas;
     }
 
-    public Set<Ticket> getTickets() {
+    public List<Ticket> getTickets() {
         return tickets;
     }
 
-    public Oferta tickets(Set<Ticket> tickets) {
+    public Oferta tickets(List<Ticket> tickets) {
         this.tickets = tickets;
         return this;
     }
@@ -197,7 +195,7 @@ public class Oferta implements Serializable {
         return this;
     }
 
-    public void setTickets(Set<Ticket> tickets) {
+    public void setTickets(List<Ticket> tickets) {
         this.tickets = tickets;
     }
 

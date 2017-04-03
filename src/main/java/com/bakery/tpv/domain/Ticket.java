@@ -149,7 +149,6 @@ public class Ticket implements Serializable {
 
     public Ticket addOferta(Oferta oferta) {
         this.ofertas.add(oferta);
-        oferta.getTickets().add(this);
         return this;
     }
 
@@ -174,7 +173,6 @@ public class Ticket implements Serializable {
 
     public Ticket addProducto(Producto producto) {
         this.productos.add(producto);
-        producto.getTickets().add(this);
         return this;
     }
 

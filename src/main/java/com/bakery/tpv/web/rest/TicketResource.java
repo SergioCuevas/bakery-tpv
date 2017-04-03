@@ -14,6 +14,7 @@ import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
+@Transactional
 public class TicketResource {
 
     private final Logger log = LoggerFactory.getLogger(TicketResource.class);
@@ -58,6 +61,7 @@ public class TicketResource {
         }
         ticket.setFecha(ZonedDateTime.of(LocalDate.now(), LocalTime.now(), ZoneId.systemDefault()));
         ticket.setCerrado(false);
+        ticket.setProductos(new ArrayList<>());
         Ticket result = ticketRepository.save(ticket);
         return ResponseEntity.created(new URI("/api/tickets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -91,7 +95,8 @@ public class TicketResource {
     //Función para añadir un producto a un ticket, primero busca el ticket con el id del path,
     // y a ese ticket se le añade el producto. Finalmente tambien se le suma a la cantidad total
     // del ticket el precio del producto
-    @PutMapping("/tickets/producto/ad/{id}")
+    ///tickets/{id}/productos/
+    @PutMapping("/tickets/producto/add/{id}")
     @Timed
     public ResponseEntity<Ticket> updateTicketAddProduct(@RequestBody Producto producto, @PathVariable long id) throws URISyntaxException {
         Ticket t = ticketRepository.findOne(id);
@@ -107,7 +112,7 @@ public class TicketResource {
     // y a ese ticket se le ae la oferta
     @PutMapping("/tickets/oferta/add/{id}")
     @Timed
-    public ResponseEntity<Ticket> updateTicketAddProduct(@RequestBody Oferta oferta, @PathVariable long id) throws URISyntaxException {
+    public ResponseEntity<Ticket> updateTicketAddOffer(@RequestBody Oferta oferta, @PathVariable long id) throws URISyntaxException {
         Ticket t = ticketRepository.findOne(id);
         t.addOferta(oferta);
         t.setCantidad(t.getCantidad()+oferta.getPrecio());

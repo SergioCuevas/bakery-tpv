@@ -49,7 +49,7 @@
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="ticket" columnName="fecha" columnDataType="datetime"/>
-        
+
         <createTable tableName="ticket_oferta">
             <column name="ofertas_id" type="bigint">
                 <constraints nullable="false"/>
@@ -59,8 +59,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="tickets_id, ofertas_id" tableName="ticket_oferta"/>
-        
+
         <createTable tableName="ticket_producto">
             <column name="productos_id" type="bigint">
                 <constraints nullable="false"/>
@@ -70,7 +69,7 @@
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="tickets_id, productos_id" tableName="ticket_producto"/>
-        
+
+
     </changeSet>
 </databaseChangeLog>
