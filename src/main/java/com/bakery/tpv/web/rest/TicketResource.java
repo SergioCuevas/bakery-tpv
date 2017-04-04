@@ -122,6 +122,18 @@ public class TicketResource {
             .body(result);
     }
 
+
+    @PutMapping("/tickets/{id}/calculadora/{valor}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketAddOffer(@PathVariable long id, @PathVariable double valor) throws URISyntaxException {
+        Ticket t = ticketRepository.findOne(id);
+        t.setCantidad(t.getCantidad()+valor);
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
+            .body(result);
+    }
+
     /**
      * GET  /tickets : get all the tickets.
      *
