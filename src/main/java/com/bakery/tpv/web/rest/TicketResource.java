@@ -123,11 +123,12 @@ public class TicketResource {
     }
 
 
-    @PutMapping("/tickets/{id}/calculadora/{valor}")
+    @PutMapping("/tickets/{id}/calculadora/{valor:.+}")
     @Timed
-    public ResponseEntity<Ticket> updateTicketCalculator(@PathVariable long id, @PathVariable double valor) throws URISyntaxException {
+    public ResponseEntity<Ticket> updateTicketCalculator(@PathVariable long id, @PathVariable String valor) throws URISyntaxException {
+        double v = Double.parseDouble(valor);
         Ticket t = ticketRepository.findOne(id);
-        t.setCantidad(t.getCantidad()+valor);
+        t.setCantidad(t.getCantidad()+v);
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
