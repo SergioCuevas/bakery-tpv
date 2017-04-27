@@ -2,6 +2,7 @@ package com.bakery.tpv.web.rest;
 
 import com.bakery.tpv.domain.Oferta;
 import com.bakery.tpv.domain.Producto;
+import com.bakery.tpv.repository.ProductoRepository;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Ticket;
 
@@ -40,9 +41,11 @@ public class TicketResource {
     private static final String ENTITY_NAME = "ticket";
 
     private final TicketRepository ticketRepository;
+    private final ProductoRepository productoRepository;
 
-    public TicketResource(TicketRepository ticketRepository) {
+    public TicketResource(TicketRepository ticketRepository, ProductoRepository productoRepository) {
         this.ticketRepository = ticketRepository;
+        this.productoRepository = productoRepository;
     }
 
     /**
@@ -96,12 +99,29 @@ public class TicketResource {
     // y a ese ticket se le añade el producto. Finalmente tambien se le suma a la cantidad total
     // del ticket el precio del producto
     ///tickets/{id}/productos/
-    @PutMapping("/tickets/producto/add/{id}")
+    @PutMapping("/tickets/{id}/producto/{idProducto}")
     @Timed
-    public ResponseEntity<Ticket> updateTicketAddProduct(@RequestBody Producto producto, @PathVariable long id) throws URISyntaxException {
+    public ResponseEntity<Ticket> updateTicketAddProduct(@PathVariable long idProducto, @PathVariable long id) throws URISyntaxException {
+
+        log.debug("REST request to add Producto : {}", idProducto);
+
+
         Ticket t = ticketRepository.findOne(id);
-        t.addProducto(producto);
-        t.setCantidad(t.getCantidad()+producto.getPrecio());
+        Producto p = productoRepository.findOne(idProducto);
+        t.addProducto(p);
+
+        double cantidad = t.getCantidad()*100;
+        double precio = p.getPrecio()*100;
+
+        int cantidadSumada = (int)cantidad+(int)precio;
+
+        double suma = (double)cantidadSumada/100;
+
+        t.setCantidad(suma);
+
+
+
+
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))

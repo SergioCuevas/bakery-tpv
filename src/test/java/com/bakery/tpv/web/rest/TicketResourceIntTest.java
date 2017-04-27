@@ -3,6 +3,7 @@ package com.bakery.tpv.web.rest;
 import com.bakery.tpv.BakeryTpvApp;
 
 import com.bakery.tpv.domain.Ticket;
+import com.bakery.tpv.repository.ProductoRepository;
 import com.bakery.tpv.repository.TicketRepository;
 import com.bakery.tpv.web.rest.errors.ExceptionTranslator;
 
@@ -62,6 +63,9 @@ public class TicketResourceIntTest {
     private TicketRepository ticketRepository;
 
     @Autowired
+    private ProductoRepository productoRepository;
+
+    @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
 
     @Autowired
@@ -80,7 +84,7 @@ public class TicketResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-            TicketResource ticketResource = new TicketResource(ticketRepository);
+            TicketResource ticketResource = new TicketResource(ticketRepository, productoRepository);
         this.restTicketMockMvc = MockMvcBuilders.standaloneSetup(ticketResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
