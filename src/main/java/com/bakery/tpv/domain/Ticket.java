@@ -3,6 +3,7 @@ package com.bakery.tpv.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class Ticket implements Serializable {
     private Integer mesa;
 
     @Column(name = "cantidad")
-    private Double cantidad;
+    private BigDecimal cantidad;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "metodo_pago")
@@ -86,16 +87,16 @@ public class Ticket implements Serializable {
         this.mesa = mesa;
     }
 
-    public Double getCantidad() {
+    public BigDecimal getCantidad() {
         return cantidad;
     }
 
-    public Ticket cantidad(Double cantidad) {
+    public Ticket cantidad(BigDecimal cantidad) {
         this.cantidad = cantidad;
         return this;
     }
 
-    public void setCantidad(Double cantidad) {
+    public void setCantidad(BigDecimal cantidad) {
         this.cantidad = cantidad;
     }
 

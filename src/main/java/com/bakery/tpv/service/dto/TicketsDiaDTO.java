@@ -2,6 +2,7 @@ package com.bakery.tpv.service.dto;
 
 import com.bakery.tpv.domain.Ticket;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -10,9 +11,9 @@ import java.util.List;
 public class TicketsDiaDTO {
 
     private List<Ticket> tickets ;
-    private Double cantidadTotal ;
+    private BigDecimal cantidadTotal ;
 
-    public TicketsDiaDTO(List<Ticket> tickets, Double cantidadTotal) {
+    public TicketsDiaDTO(List<Ticket> tickets, BigDecimal cantidadTotal) {
         this.tickets = tickets;
         this.cantidadTotal = cantidadTotal;
     }
@@ -21,7 +22,7 @@ public class TicketsDiaDTO {
         return tickets;
     }
 
-    public Double getCantidadTotal() {
+    public BigDecimal getCantidadTotal() {
         return cantidadTotal;
     }
 }

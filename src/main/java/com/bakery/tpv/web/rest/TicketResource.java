@@ -10,7 +10,6 @@ import com.bakery.tpv.repository.TicketRepository;
 
 import com.bakery.tpv.service.dto.TicketsDiaDTO;
 import com.bakery.tpv.web.rest.util.HeaderUtil;
-import com.codahale.metrics.annotation.Timed;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -110,18 +110,9 @@ public class TicketResource {
         Producto p = productoRepository.findOne(idProducto);
         t.addProducto(p);
 
-        double cantidad = t.getCantidad()*100;
-        double precio = p.getPrecio()*100;
+        BigDecimal cantidadSumada = t.getCantidad().add(p.getPrecio());
 
-        int cantidadSumada = (int)cantidad+(int)precio;
-
-        double suma = (double)cantidadSumada/100;
-
-        t.setCantidad(suma);
-
-
-
-
+        t.setCantidad(cantidadSumada);
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
@@ -135,7 +126,7 @@ public class TicketResource {
     public ResponseEntity<Ticket> updateTicketAddOffer(@RequestBody Oferta oferta, @PathVariable long id) throws URISyntaxException {
         Ticket t = ticketRepository.findOne(id);
         t.addOferta(oferta);
-        t.setCantidad(t.getCantidad()+oferta.getPrecio());
+        t.setCantidad(t.getCantidad().add(oferta.getPrecio()));
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
@@ -146,9 +137,9 @@ public class TicketResource {
     @PutMapping("/tickets/{id}/calculadora/{valor:.+}")
     @Timed
     public ResponseEntity<Ticket> updateTicketCalculator(@PathVariable long id, @PathVariable String valor) throws URISyntaxException {
-        double v = Double.parseDouble(valor);
+        BigDecimal v = new BigDecimal(Double.parseDouble(valor));
         Ticket t = ticketRepository.findOne(id);
-        t.setCantidad(t.getCantidad()+v);
+        t.setCantidad(t.getCantidad().add(v));
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
@@ -195,11 +186,11 @@ public class TicketResource {
 
         List<Ticket> tickets = ticketRepository.findByFechaBetween(start,end);
 
-        Double total = 0.0;
+        BigDecimal total = new BigDecimal(0);
 
         for (Ticket ticket:tickets
              ) {
-            total = total+ticket.getCantidad();
+            total = total.add(ticket.getCantidad());
 
         }
 

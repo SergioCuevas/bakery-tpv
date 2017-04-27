@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,8 +50,8 @@ public class ProductoResourceIntTest {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_PRECIO = 1D;
-    private static final Double UPDATED_PRECIO = 2D;
+    private static final BigDecimal DEFAULT_PRECIO = new BigDecimal(1D);
+    private static final BigDecimal UPDATED_PRECIO = new BigDecimal(2D);
 
     @Autowired
     private ProductoRepository productoRepository;

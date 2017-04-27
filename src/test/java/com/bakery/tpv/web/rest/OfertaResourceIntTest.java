@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
@@ -54,8 +55,8 @@ public class OfertaResourceIntTest {
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_PRECIO = 1D;
-    private static final Double UPDATED_PRECIO = 2D;
+    private static final BigDecimal DEFAULT_PRECIO = new BigDecimal(1);
+    private static final BigDecimal UPDATED_PRECIO = new BigDecimal(2);
 
     private static final ZonedDateTime DEFAULT_FECHAINICIO = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_FECHAINICIO = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);

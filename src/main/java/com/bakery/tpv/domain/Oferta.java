@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -34,7 +35,7 @@ public class Oferta implements Serializable {
     private String descripcion;
 
     @Column(name = "precio")
-    private Double precio;
+    private BigDecimal precio;
 
     @Column(name = "fechainicio")
     private ZonedDateTime fechainicio;
@@ -110,16 +111,16 @@ public class Oferta implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public Oferta precio(Double precio) {
+    public Oferta precio(BigDecimal precio) {
         this.precio = precio;
         return this;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

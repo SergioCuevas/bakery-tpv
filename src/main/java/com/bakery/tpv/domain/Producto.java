@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -33,7 +34,7 @@ public class Producto implements Serializable {
     private String descripcion;
 
     @Column(name = "precio")
-    private Double precio;
+    private BigDecimal precio;
 
     @ManyToOne
     private Tipo tipo;
@@ -106,16 +107,16 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public Producto precio(Double precio) {
+    public Producto precio(BigDecimal precio) {
         this.precio = precio;
         return this;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 

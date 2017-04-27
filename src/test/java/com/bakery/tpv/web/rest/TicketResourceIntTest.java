@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.ZoneOffset;
@@ -50,8 +51,8 @@ public class TicketResourceIntTest {
     private static final Integer DEFAULT_MESA = 1;
     private static final Integer UPDATED_MESA = 2;
 
-    private static final Double DEFAULT_CANTIDAD = 1D;
-    private static final Double UPDATED_CANTIDAD = 2D;
+    private static final BigDecimal DEFAULT_CANTIDAD = new BigDecimal(1);
+    private static final BigDecimal UPDATED_CANTIDAD = new BigDecimal(1);
 
     private static final MetodoPago DEFAULT_METODO_PAGO = MetodoPago.EFECTIVO;
     private static final MetodoPago UPDATED_METODO_PAGO = MetodoPago.TARJETA;

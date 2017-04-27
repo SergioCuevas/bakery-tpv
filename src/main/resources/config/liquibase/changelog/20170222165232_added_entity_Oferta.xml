@@ -37,7 +37,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="precio" type="double">
+            <column name="precio" type="decimal(10, 2)">
                 <constraints nullable="true" />
             </column>
 
@@ -53,6 +53,6 @@
         </createTable>
         <dropDefaultValue tableName="oferta" columnName="fechainicio" columnDataType="datetime"/>
         <dropDefaultValue tableName="oferta" columnName="fechafinal" columnDataType="datetime"/>
-        
+
     </changeSet>
 </databaseChangeLog>
