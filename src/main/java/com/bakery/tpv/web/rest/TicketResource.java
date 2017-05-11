@@ -119,6 +119,17 @@ public class TicketResource {
             .body(result);
     }
 
+    @PutMapping("/tickets/{id}/mesa/{mesa}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketAddProduct(@PathVariable int mesa, @PathVariable long id) throws URISyntaxException {
+        Ticket t = ticketRepository.findOne(id);
+        t.setMesa(mesa);
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
+            .body(result);
+    }
+
     //Función para añadir una oferta a un ticket, primero busca el ticket con el id del path,
     // y a ese ticket se le ae la oferta
     @PutMapping("/tickets/oferta/add/{id}")
