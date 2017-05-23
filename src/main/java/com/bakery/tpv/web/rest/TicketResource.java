@@ -107,7 +107,7 @@ public class TicketResource {
         Ticket t = ticketRepository.findOne(id);
         Producto p = productoRepository.findOne(idProducto);
 
-        for(int i = 0; i<t.getProductos().size();i++){
+        for(int i = t.getProductos().size()-1; i>=0;i--){
             if(t.getProductos().get(i).getId()==p.getId()&&cantidad>0){
                 t.getProductos().remove(i);
                 cantidad--;
