@@ -95,6 +95,30 @@ public class TicketResource {
             .body(result);
     }
 
+
+
+    @DeleteMapping("/tickets/{id}/producto/{idProducto}/cantidad/{cantidad}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketDeleteProduct(@PathVariable long idProducto, @PathVariable long id, @PathVariable int cantidad) throws URISyntaxException {
+
+        log.debug("REST request to add Producto : {}", idProducto);
+
+
+        Ticket t = ticketRepository.findOne(id);
+        Producto p = productoRepository.findOne(idProducto);
+
+        for(int i = 0; i<t.getProductos().size();i++){
+            if(t.getProductos().get(i).getId()==p.getId()&&cantidad>0){
+                t.getProductos().remove(i);
+            }
+        }
+
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
+            .body(result);
+    }
+
     //Función para añadir un producto a un ticket, primero busca el ticket con el id del path,
     // y a ese ticket se le añade el producto. Finalmente tambien se le suma a la cantidad total
     // del ticket el precio del producto
