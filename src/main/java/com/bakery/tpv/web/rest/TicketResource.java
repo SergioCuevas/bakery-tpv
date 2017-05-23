@@ -110,6 +110,7 @@ public class TicketResource {
         for(int i = 0; i<t.getProductos().size();i++){
             if(t.getProductos().get(i).getId()==p.getId()&&cantidad>0){
                 t.getProductos().remove(i);
+                cantidad--;
             }
         }
 
