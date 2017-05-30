@@ -8,17 +8,14 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('shop', {
-            parent: 'app',
+        $stateProvider.state('listaproducttos', {
+            parent: 'listaproductos',
             url: '/menu',
             data: {
                 authorities: ['ROLE_USER']
             },
             views: {
-                'content@': {
-                    templateUrl: 'app/tpv/menu.html'
-                },
-                'listaproducttos@': {
+                'menutipos@': {
                     templateUrl: 'app/tables/listatickets/listatickets.html',
                     controller: '',
                     controllerAs: 'vm'
