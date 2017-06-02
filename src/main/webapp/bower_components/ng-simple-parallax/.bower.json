@@ -1,0 +1,33 @@
+{
+  "name": "ng-simple-parallax",
+  "homepage": "https://github.com/allenRoyston/ng-parallax",
+  "authors": [
+    "Allen R <allen.acr@gmail.com>"
+  ],
+  "description": "Simple AngularJS module",
+  "main": "src/ngParallax.js",
+  "keywords": [
+    "angularjs",
+    "parallax",
+    "scrolling",
+    "royston"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "23db26c4e9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "23db26c4e9d10877e3bb6b183f69a86cfb249404"
+  },
+  "_source": "https://github.com/allenRoyston/ng-parallax.git",
+  "_target": "*",
+  "_originalSource": "ng-simple-parallax",
+  "_direct": true
+}

@@ -1,4 +1,31 @@
-<nav class="navbar navbar-default" role="navigation">
+<script>
+    $('#nav').affix({
+        offset: {
+            top: $('header').height()-$('#nav').height()
+        }
+    });
+
+    /* highlight the top nav as scrolling occurs */
+    $('body').scrollspy({ target: '#nav' })
+
+    /* smooth scrolling for scroll to top */
+    $('.scroll-top').click(function(){
+        $('body,html').animate({scrollTop:0},1000);
+    })
+
+    /* smooth scrolling for nav sections */
+    $('#nav .navbar-nav li>a').click(function(){
+        var link = $(this).attr('href');
+        var posi = $(link).offset().top;
+        $('body,html').animate({scrollTop:posi},700);
+    });
+
+
+
+
+
+</script>
+<nav class="navbar navbar-inverse navbar-static-top navbar-default" id="nav" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" ng-click="vm.toggleNavbar()">
@@ -8,8 +35,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand logo" href="#/" ng-click="vm.collapseNavbar()">
-                <img class="logo-img" src="content/images/logo-jhipster.png" alt="logo"/>
-                <span data-translate="global.title">BakeryTPV</span> <span class="navbar-version">v{{VERSION}}</span>
+                <img class="logo-img" src="content/images/bakerylogolauncher.png" alt="logo"/>
+                <span data-translate="global.title">BakeryTPV</span>
             </a>
         </div>
         <div class="navbar-collapse" uib-collapse="vm.isNavbarCollapsed" ng-switch="vm.isAuthenticated()">
@@ -191,3 +218,4 @@
         </div>
     </div>
 </nav>
+

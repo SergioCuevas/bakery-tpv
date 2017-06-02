@@ -53,8 +53,29 @@ Version number in navbar
 .navbar-version {
     font-size: 10px;
     color: #ccc
-}
 
+}
+.navbar-default{
+    margin-bottom: 0!important;
+    -webkit-transition: all 0.6s ease-out;
+    -moz-transition: all 0.6s ease-out;
+    -o-transition: all 0.6s ease-out;
+    -ms-transition: all 0.6s ease-out;
+    transition: all 0.6s ease-out;
+}
+.scroll-top {
+    position:fixed;
+    bottom:0;
+    right:6%;
+    z-index:100;
+    background: #f2f3f2;
+    font-size:24px;
+    border-top-left-radius:3px;
+    border-top-right-radius:3px;
+}
+.scroll-top a:link,.scroll-top a:visited {
+    color:#222;
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -330,5 +351,43 @@ ui bootstrap tweaks
 }
 
 
+
+
+
+.fondo{
+    height: 60vh;
+    background-image: url("../images/restaurant.jpg");
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    text-align: center;
+    color: white;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+@media only screen and (max-device-width: 1024px) {
+    .fondo {
+        background-attachment: scroll;
+    }
+}
+
+#welcome {
+    padding: 60px 0;
+    text-align: center;
+}
+
+section {
+    color: #000000;
+    min-height: 800px;
+    height: auto !important;
+    height: 100%;
+    padding-top:100px;
+}
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
