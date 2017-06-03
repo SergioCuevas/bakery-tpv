@@ -66,13 +66,13 @@ public class TicketResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new ticket cannot already have an ID")).body(null);
         }
         ticket.setFecha(ZonedDateTime.of(LocalDate.now(), LocalTime.now(), ZoneId.systemDefault()));
-        ticket.setCerrado(false);
-        ticket.setProductos(new ArrayList<>());
         Ticket result = ticketRepository.save(ticket);
+
         return ResponseEntity.created(new URI("/api/tickets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
 
     /**
      * PUT  /tickets : Updates an existing ticket.
@@ -98,7 +98,32 @@ public class TicketResource {
             .body(result);
     }
 
+    @PutMapping("/tickets/cobrar")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketSeparado(@RequestBody Ticket ticket, @RequestBody ArrayList<Object> lista) throws URISyntaxException {
+        log.debug("REST request to update Ticket : {}", ticket);
+        if (ticket.getId() == null) {
+            return createTicket(ticket);
+        }
+        for(Object o : lista){
+            if(o instanceof Producto) {
+                for (int i = ticket.getProductos().size()-1; i >=0;i--){
+                    if(ticket.getProductos().get(i).getId()==((Producto) o).getId()){
+                        ticket.getProductos().remove(i);
+                        i=-1;
+                    }
+                }
+            } else {
+                ticket.getOfertas().remove(o);
+            }
 
+        }
+
+        Ticket result = ticketRepository.save(ticket);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ticket.getId().toString()))
+            .body(result);
+    }
 
     @DeleteMapping("/tickets/{id}/producto/{idProducto}/cantidad/{cantidad}")
     @Timed
@@ -211,7 +236,7 @@ public class TicketResource {
     @Timed
     public List<Ticket> getAllTickets() {
         log.debug("REST request to get all Tickets");
-        List<Ticket> tickets = ticketRepository.findAllWithEagerRelationships();
+        List<Ticket> tickets = ticketRepository.findAll();
         return tickets;
     }
 
