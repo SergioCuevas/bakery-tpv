@@ -98,33 +98,6 @@ public class TicketResource {
             .body(result);
     }
 
-    @PutMapping("/tickets/cobrar")
-    @Timed
-    public ResponseEntity<Ticket> updateTicketSeparado(@RequestBody Ticket ticket, @RequestBody ArrayList<Object> lista) throws URISyntaxException {
-        log.debug("REST request to update Ticket : {}", ticket);
-        if (ticket.getId() == null) {
-            return createTicket(ticket);
-        }
-        for(Object o : lista){
-            if(o instanceof Producto) {
-                for (int i = ticket.getProductos().size()-1; i >=0;i--){
-                    if(ticket.getProductos().get(i).getId()==((Producto) o).getId()){
-                        ticket.getProductos().remove(i);
-                        i=-1;
-                    }
-                }
-            } else {
-                ticket.getOfertas().remove(o);
-            }
-
-        }
-
-        Ticket result = ticketRepository.save(ticket);
-        return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ticket.getId().toString()))
-            .body(result);
-    }
-
     @DeleteMapping("/tickets/{id}/producto/{idProducto}/cantidad/{cantidad}")
     @Timed
     public ResponseEntity<Ticket> updateTicketDeleteProduct(@PathVariable long idProducto, @PathVariable long id, @PathVariable int cantidad) throws URISyntaxException {
@@ -240,6 +213,13 @@ public class TicketResource {
         return tickets;
     }
 
+    @GetMapping("/tickets/abiertos")
+    @Timed
+    public List<Ticket> getAllTicketsOpen() {
+        log.debug("REST request to get all Tickets");
+        List<Ticket> tickets = ticketRepository.findAllWithEagerRelationships();
+        return tickets;
+    }
 
     /* Devuelve una lista con los productos de un ticket a traves de una id*/
     @GetMapping("/tickets/productos/{id}")
