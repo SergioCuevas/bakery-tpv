@@ -377,17 +377,12 @@ ui bootstrap tweaks
     }
 }
 
-#welcome {
-    padding: 60px 0;
-    text-align: center;
-}
 
 section {
     color: #000000;
-    min-height: 800px;
+    min-height: 600px;
     height: auto !important;
-    height: 100%;
-    padding-top:100px;
+    padding-top:50px;
 }
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
