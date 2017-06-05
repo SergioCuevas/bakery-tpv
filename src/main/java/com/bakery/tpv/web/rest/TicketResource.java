@@ -2,6 +2,7 @@ package com.bakery.tpv.web.rest;
 
 import com.bakery.tpv.domain.Oferta;
 import com.bakery.tpv.domain.Producto;
+import com.bakery.tpv.repository.OfertaRepository;
 import com.bakery.tpv.repository.ProductoRepository;
 import com.codahale.metrics.annotation.Timed;
 import com.bakery.tpv.domain.Ticket;
@@ -42,10 +43,12 @@ public class TicketResource {
 
     private final TicketRepository ticketRepository;
     private final ProductoRepository productoRepository;
+    private final OfertaRepository ofertaRepository;
 
-    public TicketResource(TicketRepository ticketRepository, ProductoRepository productoRepository) {
+    public TicketResource(TicketRepository ticketRepository, ProductoRepository productoRepository, OfertaRepository ofertaRepository) {
         this.ticketRepository = ticketRepository;
         this.productoRepository = productoRepository;
+        this.ofertaRepository = ofertaRepository;
     }
 
     /**
@@ -63,13 +66,13 @@ public class TicketResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new ticket cannot already have an ID")).body(null);
         }
         ticket.setFecha(ZonedDateTime.of(LocalDate.now(), LocalTime.now(), ZoneId.systemDefault()));
-        ticket.setCerrado(false);
-        ticket.setProductos(new ArrayList<>());
         Ticket result = ticketRepository.save(ticket);
+
         return ResponseEntity.created(new URI("/api/tickets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
 
     /**
      * PUT  /tickets : Updates an existing ticket.
@@ -95,8 +98,6 @@ public class TicketResource {
             .body(result);
     }
 
-
-
     @DeleteMapping("/tickets/{id}/producto/{idProducto}/cantidad/{cantidad}")
     @Timed
     public ResponseEntity<Ticket> updateTicketDeleteProduct(@PathVariable long idProducto, @PathVariable long id, @PathVariable int cantidad) throws URISyntaxException {
@@ -106,22 +107,37 @@ public class TicketResource {
 
         Ticket t = ticketRepository.findOne(id);
         Producto p = productoRepository.findOne(idProducto);
-        BigDecimal precio = t.getCantidad();
 
         for(int i = t.getProductos().size()-1; i>=0;i--){
             if(t.getProductos().get(i).getId()==p.getId()&&cantidad>0){
                 t.getProductos().remove(i);
-                precio.subtract(p.getPrecio());
+                t.setCantidad(t.getCantidad().subtract(p.getPrecio()));
                 cantidad--;
             }
         }
-        t.setCantidad(precio);
         Ticket result = ticketRepository.save(t);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
             .body(result);
     }
 
+    @DeleteMapping("/tickets/{id}/oferta/{idOferta}")
+    @Timed
+    public ResponseEntity<Ticket> updateTicketDeleteOferta(@PathVariable long idOferta, @PathVariable long id) throws URISyntaxException {
+
+        log.debug("REST request to add Producto : {}", idOferta);
+
+
+        Ticket t = ticketRepository.findOne(id);
+        Oferta o = ofertaRepository.findOne(idOferta);
+
+        t.getOfertas().remove(o);
+        t.setCantidad(t.getCantidad().subtract(o.getPrecio()));
+        Ticket result = ticketRepository.save(t);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, t.getId().toString()))
+            .body(result);
+    }
     //Función para añadir un producto a un ticket, primero busca el ticket con el id del path,
     // y a ese ticket se le añade el producto. Finalmente tambien se le suma a la cantidad total
     // del ticket el precio del producto
@@ -193,10 +209,17 @@ public class TicketResource {
     @Timed
     public List<Ticket> getAllTickets() {
         log.debug("REST request to get all Tickets");
-        List<Ticket> tickets = ticketRepository.findAllWithEagerRelationships();
+        List<Ticket> tickets = ticketRepository.findAll();
         return tickets;
     }
 
+    @GetMapping("/tickets/abiertos")
+    @Timed
+    public List<Ticket> getAllTicketsOpen() {
+        log.debug("REST request to get all Tickets");
+        List<Ticket> tickets = ticketRepository.findAllWithEagerRelationships();
+        return tickets;
+    }
 
     /* Devuelve una lista con los productos de un ticket a traves de una id*/
     @GetMapping("/tickets/productos/{id}")
