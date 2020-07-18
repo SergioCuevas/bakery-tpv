@@ -50,7 +50,7 @@
         <!-- These remain empty unless the corresponding profile is active -->
         <profile.no-liquibase />
         <profile.swagger />
-        <prometheus-simpleclient.version>0.0.20</prometheus-simpleclient.version>
+        <prometheus-simpleclient.version>0.9.0</prometheus-simpleclient.version>
         <!-- Sonar properties -->
         <project.testresult.directory>${project.build.directory}/test-results</project.testresult.directory>
         <run.addResources>false</run.addResources>
