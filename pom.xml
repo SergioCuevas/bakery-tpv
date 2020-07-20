@@ -86,7 +86,7 @@
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>${project.basedir}/src/test/</sonar.tests>
 
-        <sortpom-maven-plugin.version>2.5.0</sortpom-maven-plugin.version>
+        <sortpom-maven-plugin.version>2.12.0</sortpom-maven-plugin.version>
         <!-- Spring properties -->
         <spring-security-oauth.version>2.0.12.RELEASE</spring-security-oauth.version>
         <springfox.version>2.6.1</springfox.version>
