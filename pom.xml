@@ -56,7 +56,7 @@
         <run.addResources>false</run.addResources>
         <scala-maven-plugin.version>3.2.2</scala-maven-plugin.version>
         <scala.version>2.12.1</scala.version>
-        <sonar-maven-plugin.version>3.2</sonar-maven-plugin.version>
+        <sonar-maven-plugin.version>3.7.0.1746</sonar-maven-plugin.version>
 
         <sonar.exclusions>src/main/webapp/content/**/*.*, src/main/webapp/bower_components/**/*.*, src/main/webapp/i18n/*.js, target/www/**/*.*</sonar.exclusions>
 
